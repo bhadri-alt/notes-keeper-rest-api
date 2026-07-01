@@ -1,3 +1,8 @@
+## 🌐 Live Demo
+
+- **Frontend:** https://bhadri-alt.github.io/notes-keeper-rest-api/
+- **Backend:** https://notes-keeper-rest-api.onrender.com
+
 # Notes Keeper
 
 A full-stack Notes Keeper application built using Node.js, Express.js, MongoDB Atlas, and JavaScript. The application allows users to create, view, update, and delete notes using RESTful APIs.
