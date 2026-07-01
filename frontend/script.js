@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:5000/api/notes";
+const API_URL ="https://notes-keeper-rest-api.onrender.com/";
 
 const noteForm = document.getElementById("noteForm");
 const notesContainer = document.getElementById("notesContainer");
