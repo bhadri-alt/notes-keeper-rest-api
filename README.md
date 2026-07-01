@@ -55,3 +55,86 @@ DELETE /api/notes/:id
 
 npm install
 npm run dev
+
+# 🔒 API Rate Limiting
+
+---
+
+## 📦 Installation
+
+Install the required middleware:
+
+```bash
+npm install express-rate-limit
+```
+
+---
+
+## ⚙️ Implementation
+
+### 1️⃣ Create Middleware File
+
+Create a file named `middleware/rateLimiter.js`:
+
+```javascript
+const rateLimit = require("express-rate-limit");
+
+// Configure rate limiter
+const apiLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // ⏱️ 15 minutes
+  max: 100, // 🚫 Limit each IP to 100 requests per window
+  message: {
+    success: false,
+    message: "Too many requests. Please try again later."
+  },
+  standardHeaders: true, // ✅ Return rate limit info in headers
+  legacyHeaders: false,  // ❌ Disable deprecated headers
+});
+
+module.exports = apiLimiter;
+```
+
+---
+
+### 2️⃣ Apply Middleware
+
+In your `server.js` or `app.js`:
+
+```javascript
+const apiLimiter = require("./middleware/rateLimiter");
+
+// Apply rate limiting to all API routes
+app.use("/api", apiLimiter);
+```
+
+---
+
+## 📊 Rate Limit Configuration
+
+| 🔧 Setting      | 📌 Value              |
+| --------------- | --------------------- |
+| ⏱️ Time Window  | 15 Minutes            |
+| 🚫 Max Requests | 100 Requests          |
+| ⚠️ Status Code  | 429 Too Many Requests |
+| 📦 Middleware   | express-rate-limit    |
+
+---
+
+## 🚨 Response on Limit Exceeded
+
+When a client exceeds the allowed request limit, the API returns:
+
+```json
+{
+  "success": false,
+  "message": "Too many requests. Please try again later."
+}
+```
+
+---
+
+## ✅ Summary
+
+* Protects API from abuse and excessive traffic
+* Ensures fair usage across clients
+* Improves overall application security and stability
